@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+     Dashboard
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="Outer Panel" style="max-width:85%; max-height:90%; margin:0 auto;overflow-y:scroll;">
+    <div class="Dashlet1" style="max-width:80%; max-height:90%; margin-top:10%; margin-left:10%; ">
+      <ion-card-header>
+         Line Chart
+      </ion-card-header>
+        <ion-card-content>
+          <canvas height="100%" #lineCanvasOne></canvas>
+        </ion-card-content>
+    </div>
+    <div class="Dashlet2" style="max-width:80%; max-height:90%; margin-top:10% ; margin-left:10%; ">
+      <ion-card-header>
+        Line Chart 2
+      </ion-card-header>
+      <ion-card-content>
+        <canvas height="100%" #lineCanvasTwo></canvas>
+      </ion-card-content>
+    </div>
+    <div class="Dashlet3" style="max-width:80%;max-height:90%;margin-top:10%; margin-left:10%; ">
+      <ion-card-header>
+        Doughnut Chart
+      </ion-card-header>
+        <ion-card-content>
+          <canvas height="100%" #doughnutCanvasOne> </canvas>
+        </ion-card-content>
+    </div>
+    <div class="Dashlet4" style="max-width:80%;max-height:90%; margin-top:10% ; margin-left:10%;">
+        <ion-card-header>
+        Bar Chart
+        </ion-card-header>
+        <ion-card-content>
+          <canvas height="100%" #barCanvas> </canvas>
+        </ion-card-content>
+    </div>
+    <div class="Dashlet5" style="max-width:80%;max-height:90%; margin-top:10%; margin-left:10%; margin-bottom:10%;">
+        <ion-card-header>
+        Doughnut Chart 2
+        </ion-card-header>
+        <ion-card-content>
+          <canvas height="100%" #doughnutCanvasTwo> </canvas>
+        </ion-card-content>
+    </div>
+  </div>
+   <div text-center style="margin-top:2%">
+ <button ion-button large outline>Return</button>
+ </div>
+
+</ion-content>

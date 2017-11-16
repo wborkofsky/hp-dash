@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { dashboardPage } from '../pages/dashboard/dashboard';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,8 @@ export class MyApp {
       { title: 'Filter', component: ListPage },
       { title: 'Dashlet Viewer', component: ListPage},
       { title: 'Account Settings', component: ListPage},
-      { title: 'Return', component: ListPage}
+      { title: 'Return', component: ListPage},
+      { title: 'Dashboard', component: dashboardPage}
     ];
 
   }
