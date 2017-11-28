@@ -16,6 +16,7 @@ export class DetailsPage {
 	json: Observable<any>;
 	serverData: Observable<any>;
 
+
   constructor(public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController) {
     //this.serverID = this.navCtrl.get('ID'); // Only enable when search page passes with NavController
     let loading = this.loadingCtrl.create({
@@ -75,22 +76,40 @@ export class DetailsPage {
   	this.json = this.http.post('http://0.0.0.0:4000/api/sessions', {"user": {"username":"john_doe","password":"abc123"}}, {})
       .subscribe(
         function(result) {
-          result.map(res => res.json()).subscribe(data => {
+          /*result.map(res => res.json()).subscribe(data => {
             this.token = data.data["token"];
             this.serverData = this.http.get('http://0.0.0.0:4000/api/systems/0?token=' + this.token, {}, {});
             this.serverData.map(res => res.json()).subscribe(data => {
               console.log(data);
             });
-          });
+        });*/
+          this.token = result.json().data["token"];
+          this.http.get('http://0.0.0.0:4000/api/systems/0?token=' + this.token, {}, {})
+            .subscribe(
+              function(result) {
+                let data = result.json();
+                for (i = 0; i < data.length; i++) {
+                  if (data.data[i] = null) {
+                    this.items[i] = null;
+                  }
+                  this.items[i] += data.data[i];
+                  console.log(this.items[i]);
+                }
+              },
+              function(error) {
+                loading.dismiss();
+                alert("Error!" + error);
+              },
+              function() {
+                loading.dismiss();
+              });
         },
         function(err) {
-          console.log("Error! " + err);
           loading.dismiss();
+          alert("Error! " + err);
         },
         function() {
-          loading.dismiss();
         });
+    }
   }
-
-
 }
