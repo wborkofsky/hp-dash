@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -13,17 +12,27 @@ export class DetailsPage {
 
 	items = [];
 	token: string;
-	json: Observable<any>;
+	//json: Observable<any>;
 	serverData: Observable<any>;
+  baseURL: string = 'http://0.0.0.0:4000/api';
 
 
-  constructor(public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public http: Http, 
+    public loadingCtrl: LoadingController) {
     //this.serverID = this.navCtrl.get('ID'); // Only enable when search page passes with NavController
     let loading = this.loadingCtrl.create({
       content: 'Loading...'
     });
 
     loading.present();
+
+    let systemID = this.navParams.get('systemID');
+    if (systemID == null) {
+      systemID = 0;
+      console.log('No SystemID passed, using default test value 0!');
+    }
 
     /* Initialize our System Detail strings */
     this.items.push('<b>Company Name:</b> ', //0
@@ -73,7 +82,8 @@ export class DetailsPage {
     '<b>CPU Max Daily Usage:</b>'       //44
     );
 
-  	this.json = this.http.post('http://0.0.0.0:4000/api/sessions', {"user": {"username":"john_doe","password":"abc123"}}, {})
+  	this.http.post(this.baseURL + '/sessions', 
+      {"user": {"username":"john_doe","password":"abc123"}}, {})
       .subscribe(
         function(result) {
           /*result.map(res => res.json()).subscribe(data => {
@@ -84,11 +94,11 @@ export class DetailsPage {
             });
         });*/
           this.token = result.json().data["token"];
-          this.http.get('http://0.0.0.0:4000/api/systems/0?token=' + this.token, {}, {})
+          this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
             .subscribe(
               function(result) {
                 let data = result.json();
-                for (i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                   if (data.data[i] = null) {
                     this.items[i] = null;
                   }
@@ -111,5 +121,4 @@ export class DetailsPage {
         function() {
         });
     }
-  }
 }
