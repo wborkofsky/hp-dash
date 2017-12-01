@@ -5,13 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-<<<<<<< HEAD
 import { SystemSearchPage } from '../pages/system-search/system-search';
-=======
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { dashboardPage } from '../pages/dashboard/dashboard';
->>>>>>> master
 
 @Component({
   templateUrl: 'app.html'

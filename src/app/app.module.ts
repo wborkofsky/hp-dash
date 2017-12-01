@@ -7,14 +7,10 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-<<<<<<< HEAD
 import { SystemSearchPage } from '../pages/system-search/system-search';
-
-=======
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { dashboardPage } from '../pages/dashboard/dashboard';
->>>>>>> master
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -23,13 +19,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-<<<<<<< HEAD
-    SystemSearchPage
-=======
+    SystemSearchPage,
     LoginPage,
     RegisterPage,
     dashboardPage
->>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -41,13 +34,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-<<<<<<< HEAD
-    SystemSearchPage
-=======
+    SystemSearchPage,
     LoginPage,
     RegisterPage,
     dashboardPage
->>>>>>> master
   ],
   providers: [
     StatusBar,
