@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
+import { Api } from '../../app/api';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -17,11 +18,7 @@ export class DetailsPage {
   baseURL: string = 'http://0.0.0.0:4000/api';
 
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams,
-    public http: Http, 
-    public loadingCtrl: LoadingController) {
-    //this.serverID = this.navCtrl.get('ID'); // Only enable when search page passes with NavController
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loadingCtrl: LoadingController, public api: Api) {
     let loading = this.loadingCtrl.create({
       content: 'Loading...'
     });
@@ -82,43 +79,32 @@ export class DetailsPage {
     '<b>CPU Max Daily Usage:</b>'       //44
     );
 
-  	this.http.post(this.baseURL + '/sessions', 
-      {"user": {"username":"john_doe","password":"abc123"}}, {})
+  	this.token = this.api.getToken();
+
+  	if (this.token == null) {
+  		loading.dismiss();
+  		alert("Not logged in!");
+  	} else {
+
+    this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
       .subscribe(
         function(result) {
-          /*result.map(res => res.json()).subscribe(data => {
-            this.token = data.data["token"];
-            this.serverData = this.http.get('http://0.0.0.0:4000/api/systems/0?token=' + this.token, {}, {});
-            this.serverData.map(res => res.json()).subscribe(data => {
-              console.log(data);
-            });
-        });*/
-          this.token = result.json().data["token"];
-          this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
-            .subscribe(
-              function(result) {
-                let data = result.json();
-                for (let i = 0; i < data.length; i++) {
-                  if (data.data[i] = null) {
-                    this.items[i] = null;
-                  }
-                  this.items[i] += data.data[i];
-                  console.log(this.items[i]);
-                }
-              },
-              function(error) {
-                loading.dismiss();
-                alert("Error!" + error);
-              },
-              function() {
-                loading.dismiss();
-              });
+          let data = result.json();
+          for (let i = 0; i < data.length; i++) {
+            if (data.data[i] = null) {
+              this.items[i] = null;
+            }
+            this.items[i] += data.data[i];
+            console.log(this.items[i]);
+          }
         },
-        function(err) {
+        function(error) {
           loading.dismiss();
-          alert("Error! " + err);
+          alert("Error!" + error);
         },
         function() {
+          loading.dismiss();
         });
     }
+  }
 }
