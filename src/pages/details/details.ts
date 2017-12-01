@@ -13,7 +13,6 @@ export class DetailsPage {
 
 	items = [];
 	token: string;
-	//json: Observable<any>;
 	serverData: Observable<any>;
   baseURL: string = 'http://0.0.0.0:4000/api';
 
@@ -27,8 +26,8 @@ export class DetailsPage {
 
     let systemID = this.navParams.get('systemID');
     if (systemID == null) {
-      systemID = 0;
-      console.log('No SystemID passed, using default test value 0!');
+      systemID = 1;
+      console.log('No SystemID passed, using default test value 1!');
     }
 
     /* Initialize our System Detail strings */
@@ -79,32 +78,29 @@ export class DetailsPage {
     '<b>CPU Max Daily Usage:</b>'       //44
     );
 
-  	this.token = this.api.getToken();
+  	//this.token = this.api.getToken(); // Add this when merged!
+
+    /* vRemove this when merged!v */
+  	this.token = 'SFMyNTY.g3QAAAACZAAEZGF0YWEBZAAGc2lnbmVkbgYAgcUxFGAB.9Z5BlBUfaVhim-A0Ky6Hx_7Mc5T0C7vZSoVIlgpK-Bo'
+    /* ^Remove this when merged!^ */
 
   	if (this.token == null) {
   		loading.dismiss();
   		alert("Not logged in!");
   	} else {
-
-    this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
-      .subscribe(
-        function(result) {
-          let data = result.json();
-          for (let i = 0; i < data.length; i++) {
-            if (data.data[i] = null) {
-              this.items[i] = null;
-            }
-            this.items[i] += data.data[i];
-            console.log(this.items[i]);
-          }
-        },
-        function(error) {
-          loading.dismiss();
-          alert("Error!" + error);
-        },
-        function() {
-          loading.dismiss();
-        });
+	    this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
+	      .subscribe(
+	        function(result) {
+	        	console.log(result.json());
+	        },
+	        function(error) {
+	          loading.dismiss();
+	          alert("Error!" + error);
+	        },
+	        function() {
+	          loading.dismiss();
+	      	}
+	      );
     }
   }
 }
