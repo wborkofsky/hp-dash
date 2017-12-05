@@ -15,6 +15,7 @@ export class DetailsPage {
 	token: string;
 	serverData: Observable<any>;
   baseURL: string = 'http://0.0.0.0:4000/api';
+  systemID: number;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loadingCtrl: LoadingController, public api: Api) {
@@ -24,9 +25,9 @@ export class DetailsPage {
 
     loading.present();
 
-    let systemID = this.navParams.get('systemID');
-    if (systemID == null) {
-      systemID = 1;
+    this.systemID = this.navParams.get('systemID');
+    if (this.systemID == null) {
+      this.systemID = 1;
       console.log('No SystemID passed, using default test value 1!');
     }
 
@@ -88,7 +89,7 @@ export class DetailsPage {
   		loading.dismiss();
   		alert("Not logged in!");
   	} else {
-	    this.http.get(this.baseURL + '/systems/' + systemID + '?token=' + this.token, {}, {})
+	    this.http.get(this.baseURL + '/systems/' + this.systemID + '?token=' + this.token)
 	      .subscribe(
 	        function(result) {
 	        	console.log(result.json());
