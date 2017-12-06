@@ -5,8 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Api } from './api';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { DetailsPage } from '../pages/details/details';
 import { SystemSearchPage } from '../pages/system-search/system-search';
 import { LoginPage } from '../pages/login/login';
@@ -18,8 +16,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage,
     DetailsPage,
     SystemSearchPage,
     LoginPage,
@@ -35,8 +31,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage,
     DetailsPage,
     SystemSearchPage,
     LoginPage,

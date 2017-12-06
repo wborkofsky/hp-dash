@@ -96,7 +96,7 @@ export class DetailsPage {
 	        },
 	        function(error) {
 	          loading.dismiss();
-	          alert("Error!" + error);
+	          console.log(error);
 	        },
 	        function() {
 	          loading.dismiss();
