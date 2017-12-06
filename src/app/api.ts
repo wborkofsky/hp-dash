@@ -22,6 +22,21 @@ export class Api {
     }
   }
 
+  showSystem(id: number, callback: Function) {
+    let token = this.getToken();
+    if (token == null) {
+      console.error("Cannot list systems, no token has been set.");
+      return;
+    }
+    this.http.get(this.baseUrl + '/systems/' + id + '?token=' + token)
+      .map(response => response.json())
+      .subscribe(data => {
+        callback(data.data); 
+      }, error => {
+        console.error(error);
+      });
+  }
+
   listSystems(callback: Function) {
     let token = this.getToken();
     if (token == null) {
