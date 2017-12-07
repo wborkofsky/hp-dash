@@ -16,7 +16,8 @@ export class DetailsPage {
 	serverData: Observable<any>;
   baseURL: string = 'http://0.0.0.0:4000/api';
   systemID: number;
-
+  data: any;
+  systemName: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loadingCtrl: LoadingController, public api: Api) {
     let loading = this.loadingCtrl.create({
@@ -89,7 +90,48 @@ export class DetailsPage {
   		loading.dismiss();
   		alert("Not logged in!");
   	} else {
-	    // need API calls here
+	    this.api.showSystem(this.systemID, (data) => this.fillFields(data));
+	    loading.dismiss();
     }
+  }
+
+  fillFields(data: any) {
+  	if (data == null) {
+  		alert('No data!');
+  		return;
+  	}
+ 		this.items[0] += data['companyName'];
+ 		this.items[1] += data['systemName'];
+ 		this.items[2] += data['serialNumber'];
+ 		this.items[3] += data['productFamily'];
+ 		this.items[4] += data['model'];
+ 		this.items[5] += data['osVersion'];
+ 		this.items[6] += data['cpgCount'];
+ 		(data['Recommended.osVersion'] == null) 
+ 			? this.items[7] += 'N/A' 
+ 			: this.items[7] += data['Recommended.osVersion'];
+ 		(data[location.region] == null)
+ 			? this.items[8] += 'N/A'
+ 			: this.items[8] += data['location.region'];
+ 		(data[location.country] == null)
+ 			? this.items[9] += 'N/A'
+ 			: this.items[9] += data['location.country'];
+ 		this.items[10] += data['installDate'];
+ 		this.items[11] += data['updated'];
+ 		(data['nodes.nodeCount'] == null)
+ 			? this.items[12] += 'N/A'
+ 			: this.items[12] += data['nodes.nodeCount'];
+ 		(data['nodes.nodeCountOffline'] == null)
+ 			? this.items[13] += 'N/A'
+ 			: this.items[13] += data['nodes.nodeCountOffline'];
+ 		this.items[14] += data['disks.total.diskCount'];
+ 		this.items[15] += data['disks.total.diskCountNormal'];
+ 		this.items[16] += data['disks.total.diskCountDegraded'];
+ 		this.items[17] += data['disks.total.diskCountFailed'];
+ 		this.items[18] += data['disksState'];
+ 		this.items[19] += data['vvCount'];
+ 		this.items[20] += data['tpvvCount'];
+ 		this.items[21] += data['capacity.total.freePct'] + "%";
+ 		this.items[22] += data['capacity.total.freeTiB'] + "TiB";
   }
 }
