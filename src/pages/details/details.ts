@@ -79,29 +79,17 @@ export class DetailsPage {
     '<b>CPU Max Daily Usage:</b>'       //44
     );
 
-  	//this.token = this.api.getToken(); // Add this when merged!
+  	this.token = this.api.getToken(); // Add this when merged!
 
     /* vRemove this when merged!v */
-  	this.token = 'SFMyNTY.g3QAAAACZAAEZGF0YWEBZAAGc2lnbmVkbgYAgcUxFGAB.9Z5BlBUfaVhim-A0Ky6Hx_7Mc5T0C7vZSoVIlgpK-Bo'
+  	//this.token = 'SFMyNTY.g3QAAAACZAAEZGF0YWEBZAAGc2lnbmVkbgYAgcUxFGAB.9Z5BlBUfaVhim-A0Ky6Hx_7Mc5T0C7vZSoVIlgpK-Bo'
     /* ^Remove this when merged!^ */
 
   	if (this.token == null) {
   		loading.dismiss();
   		alert("Not logged in!");
   	} else {
-	    this.http.get(this.baseURL + '/systems/' + this.systemID + '?token=' + this.token)
-	      .subscribe(
-	        function(result) {
-	        	console.log(result.json());
-	        },
-	        function(error) {
-	          loading.dismiss();
-	          console.log(error);
-	        },
-	        function() {
-	          loading.dismiss();
-	      	}
-	      );
+	    // need API calls here
     }
   }
 }
