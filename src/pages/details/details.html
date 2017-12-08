@@ -9,9 +9,11 @@
 </ion-header>
 
 <ion-content>
-	<ion-list>
-		<ion-item text-wrap *ngFor="let item of items" [innerHTML]="item">
-			{{ item }}
-		</ion-item>
-	</ion-list>
+  <div style="text-align: left">
+  	<ion-list>
+  		<ion-item text-wrap *ngFor="let item of items" [innerHTML]="item">
+  			{{ item }}
+  		</ion-item>
+  	</ion-list>
+  </div>
 </ion-content>
