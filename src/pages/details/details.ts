@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
 import { Api } from '../../app/api';
 import 'rxjs/add/operator/map';
 
@@ -13,13 +11,10 @@ export class DetailsPage {
 
 	items = [];
 	token: string;
-	serverData: Observable<any>;
-  baseURL: string = 'http://0.0.0.0:4000/api';
   systemID: number;
   data: any;
-  systemName: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loadingCtrl: LoadingController, public api: Api) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public api: Api) {
     let loading = this.loadingCtrl.create({
       content: 'Loading...'
     });
