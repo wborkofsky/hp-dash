@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Api } from './api';
-import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { DetailsPage } from '../pages/details/details';
