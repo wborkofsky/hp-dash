@@ -10,15 +10,20 @@
 </ion-header>
 
 <ion-content padding>
+
   <div class="Outer Panel" style="max-width:100%; max-height:100%; margin:0 auto;">
+
     <div class="Dashlet1" style="max-width:80%; max-height:90%; margin-top:10%; margin-left:10%; ">
+      <ion-card>
       <ion-card-header>
          Line Chart
       </ion-card-header>
         <ion-card-content>
           <canvas height="100%" #lineCanvasOne></canvas>
         </ion-card-content>
+        </ion-card>
     </div>
+
     <div class="Dashlet2" style="max-width:80%; max-height:90%; margin-top:10% ; margin-left:10%; ">
       <ion-card-header>
         Line Chart 2
@@ -27,6 +32,7 @@
         <canvas height="100%" #lineCanvasTwo></canvas>
       </ion-card-content>
     </div>
+
     <div class="Dashlet3" style="max-width:80%;max-height:90%;margin-top:10%; margin-left:10%; ">
       <ion-card-header>
         Doughnut Chart
@@ -35,6 +41,7 @@
           <canvas height="100%" #doughnutCanvasOne> </canvas>
         </ion-card-content>
     </div>
+
     <div class="Dashlet4" style="max-width:80%;max-height:90%; margin-top:10% ; margin-left:10%;">
         <ion-card-header>
         Bar Chart
@@ -43,6 +50,7 @@
           <canvas height="100%" #barCanvas> </canvas>
         </ion-card-content>
     </div>
+
     <div class="Dashlet5" style="max-width:80%;max-height:90%; margin-top:10%; margin-left:10%; margin-bottom:10%;">
         <ion-card-header>
         Doughnut Chart 2
@@ -51,8 +59,10 @@
           <canvas height="100%" #doughnutCanvasTwo> </canvas>
         </ion-card-content>
     </div>
+
   </div>
-   <div text-center style="margin-top:2%">
- </div>
+
+  <div text-center style="margin-top:2%">
+  </div>
 
 </ion-content>
