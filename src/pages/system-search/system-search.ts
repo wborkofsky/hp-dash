@@ -9,7 +9,7 @@ export class SystemSearchPage {
   items;
   filteredItems;
   pushPage;
-
+  
   constructor() {
     this.initializeItems();
 	this.filteredItems = this.items;
@@ -18,26 +18,26 @@ export class SystemSearchPage {
 
   initializeItems() {
     this.items = [
-      ['System1', true, 0],
-      ['System2', true, 1],
+      ['System1', false, 0],
+      ['System2', false, 1],
       ['System3', false, 2],
       ['System4', false, 3],
-      ['System5', true, 4],
-      ['System6', true, 5],
+      ['System5', false, 4],
+      ['System6', false, 5],
       ['System7', false, 6],
-      ['System8', true, 7],
+      ['System8', false, 7],
       ['System9', false, 8],
       ['System10', false, 9],
-      ['System11', true, 10],
+      ['System11', false, 10],
       ['System12', false, 11],
       ['System13', false, 12],
       ['System14', false, 13],
-      ['System15', true, 14],
-      ['System16', true, 15],
-      ['System17', true, 16],
+      ['System15', false, 14],
+      ['System16', false, 15],
+      ['System17', false, 16],
       ['System18', false, 17],
-      ['System19', true, 18],
-      ['System20', true, 19]
+      ['System19', false, 18],
+      ['System20', false, 19]
     ];
   }
 
