@@ -5,7 +5,8 @@ import { Api } from './api';
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
-import { DetailsPage } from '../pages/details/details';
+import { HomePage } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
 import { SystemSearchPage } from '../pages/system-search/system-search';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
@@ -16,7 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    DetailsPage,
+    HomePage,
+    ListPage,
     SystemSearchPage,
     LoginPage,
     RegisterPage,
@@ -26,12 +28,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    DetailsPage,
+    HomePage,
+    ListPage,
     SystemSearchPage,
     LoginPage,
     RegisterPage,

@@ -13,26 +13,26 @@ export class SystemSearchPage {
 
   initializeItems() {
     this.items = [
-      'System1',
-      'System2',
-      'System3',
-      'System4',
-      'System5',
-      'System6',
-      'System7',
-      'System8',
-      'System9',
-      'System10',
-      'System11',
-      'System12',
-      'System13',
-      'System14',
-      'System15',
-      'System16',
-      'System17',
-      'System18',
-      'System19',
-      'System20'
+      'dashlet1',
+      'dashlet2',
+      'dashlet3',
+      'dashlet4',
+      'dashlet5',
+      'dashlet6',
+      'dashlet7',
+      'dashlet8',
+      'dashlet9',
+      'dashlet10',
+      'dashlet11',
+      'dashlet12',
+      'dashlet13',
+      'dashlet14',
+      'dashlet15',
+      'dashlet16',
+      'dashlet17',
+      'dashlet18',
+      'dashlet19',
+      'dashlet20'
     ];
   }
 
