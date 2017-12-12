@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DetailsPage } from '../details/details' ;
 
 @Component({
@@ -10,10 +10,11 @@ export class SystemSearchPage {
   filteredItems;
   pushPage;
   
-  constructor() {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.initializeItems();
 	this.filteredItems = this.items;
 	this.pushPage = DetailsPage;
+	
   }
 
   initializeItems() {
@@ -61,6 +62,6 @@ export class SystemSearchPage {
 	  this.items[index][1] = !this.items[index][1];
 }
   switchToDetails(){
-	   this.nav.push(DetailsPage);
+	   this.navCtrl.push(DetailsPage);
   }
 }
