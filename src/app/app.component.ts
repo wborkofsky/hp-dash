@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { DetailsPage } from '../pages/details/details';
 import { SystemSearchPage } from '../pages/system-search/system-search';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
@@ -15,7 +14,7 @@ import { dashboardPage } from '../pages/dashboard/dashboard';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = dashboardPage;
+  rootPage: any = RegisterPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -26,7 +25,6 @@ export class MyApp {
     this.pages = [
       { title: 'Dashboard', component: dashboardPage},
       { title: 'Search', component: SystemSearchPage },
-      { title: 'Details', component: DetailsPage},
       { title: 'Login', component: LoginPage},
       { title: 'Register', component: RegisterPage}
     ];
