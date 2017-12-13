@@ -1,51 +1,30 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { DetailsPage } from '../details/details' ;
+import { Api } from '../../app/api';
 
 @Component({
   templateUrl: 'system-search.html'
 })
 export class SystemSearchPage {
-  items;
-  filteredItems;
+  items = [];
+  filteredItems = [];
   pushPage;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.initializeItems();
-	this.filteredItems = this.items;
-	this.pushPage = DetailsPage;
-	
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api) {
+    this.api.listSystems((dataArg) => this.initializeItems(dataArg));
+	  this.filteredItems = this.items;
+	  this.pushPage = DetailsPage;
   }
 
-  initializeItems() {
-    this.items = [
-      ['System1', false, 0],
-      ['System2', false, 1],
-      ['System3', false, 2],
-      ['System4', false, 3],
-      ['System5', false, 4],
-      ['System6', false, 5],
-      ['System7', false, 6],
-      ['System8', false, 7],
-      ['System9', false, 8],
-      ['System10', false, 9],
-      ['System11', false, 10],
-      ['System12', false, 11],
-      ['System13', false, 12],
-      ['System14', false, 13],
-      ['System15', false, 14],
-      ['System16', false, 15],
-      ['System17', false, 16],
-      ['System18', false, 17],
-      ['System19', false, 18],
-      ['System20', false, 19]
-    ];
+  initializeItems(dataArg) {
+    for (var i = 0; i < dataArg.length; i++){
+      this.items.push([dataArg[i].systemName, false, i, dataArg[i].id])
+    }
   }
 
   getItems(ev) {
-    // Reset items back to all of the items
-    // this.initializeItems();
-	this.filteredItems = this.items;
+	  this.filteredItems = this.items;
 
     // set val to the value of the ev target
     var val = ev.target.value;
@@ -60,8 +39,9 @@ export class SystemSearchPage {
   
   updateItem(index){
 	  this.items[index][1] = !this.items[index][1];
-}
-  switchToDetails(){
-	   this.navCtrl.push(DetailsPage);
+  }
+  switchToDetails(id){
+    //
+	  this.navCtrl.push(DetailsPage, {systemID: id});
   }
 }
