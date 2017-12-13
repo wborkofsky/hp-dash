@@ -1,53 +1,47 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { DetailsPage } from '../details/details' ;
+import { Api } from '../../app/api';
 
 @Component({
   templateUrl: 'system-search.html'
 })
 export class SystemSearchPage {
-  items;
-
-  constructor() {
-    this.initializeItems();
+  items = [];
+  filteredItems = [];
+  pushPage;
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public api: Api) {
+    this.api.listSystems((dataArg) => this.initializeItems(dataArg));
+	  this.filteredItems = this.items;
+	  this.pushPage = DetailsPage;
   }
 
-  initializeItems() {
-    this.items = [
-      'System1',
-      'System2',
-      'System3',
-      'System4',
-      'System5',
-      'System6',
-      'System7',
-      'System8',
-      'System9',
-      'System10',
-      'System11',
-      'System12',
-      'System13',
-      'System14',
-      'System15',
-      'System16',
-      'System17',
-      'System18',
-      'System19',
-      'System20'
-    ];
+  initializeItems(dataArg) {
+    for (var i = 0; i < dataArg.length; i++){
+      this.items.push([dataArg[i].systemName, false, i, dataArg[i].id])
+    }
   }
 
   getItems(ev) {
-    // Reset items back to all of the items
-    this.initializeItems();
+	  this.filteredItems = this.items;
 
     // set val to the value of the ev target
     var val = ev.target.value;
 
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.filteredItems = this.filteredItems.filter((item) => {
+        return (item[0].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
+  
+  updateItem(index){
+	  this.items[index][1] = !this.items[index][1];
+  }
+  switchToDetails(id){
+    //
+	  this.navCtrl.push(DetailsPage, {systemID: id});
   }
 }
