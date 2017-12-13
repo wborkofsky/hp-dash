@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {Chart} from 'chart.js'
+import {Chart} from 'chart.js';
+import {Api} from '../../app/api';
 
 @Component({
   selector: 'page-dashboard',
@@ -9,8 +10,8 @@ import {Chart} from 'chart.js'
 export class dashboardPage {
     @ViewChild('lineCanvasOne') lineCanvasOne;
     @ViewChild('doughnutCanvasOne') doughnutCanvasOne
-	@ViewChild('barCanvas') barCanvas;
-	@ViewChild('doughnutCanvasTwo') doughnutCanvasTwo;
+    @ViewChild('barCanvas') barCanvas;
+    @ViewChild('doughnutCanvasTwo') doughnutCanvasTwo;
     @ViewChild('lineCanvasTwo') lineCanvasTwo;
  
     lineChartOne: any;
@@ -19,21 +20,53 @@ export class dashboardPage {
     doughnutChartTwo: any;
     lineChartTwo: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,public api:Api) {
+   
 
   }
+
 ionViewDidLoad() {
-        this.lineChartOne = new Chart(this.lineCanvasOne.nativeElement, {
+        var json_objs= [];
+        var cpg_count = [];
+        var disk_count =[];
+        var capacity_size = [];
+        var bandwidth =[];
+        var capacity_free =[];
+
+        var global_labels =["System1","System2","System3","System4","System5","System6","System7","System8","System9","System10"];
+        console.log(this)
+        this.api.listSystems( (dataArg) => {
+            console.log(dataArg);
+            var i = 0;
+            for (i=0; i<dataArg.length; i++){
+            json_objs.push(dataArg[i]);
+            cpg_count.push(parseInt(dataArg[i].cpgCount));
+            disk_count.push(parseInt(dataArg[i].disks_total_diskCount));
+            capacity_size.push(parseInt(dataArg[i].capacity_total_sizeTiB));
+            capacity_free.push(parseInt(dataArg[i].capacity_total_freeTiB));
+            bandwidth.push(dataArg[i].performance_portBandwidthData_total_dataRateKBPSAvg);
+            console.log(this)
+            }
+            this.lineChartOne = new Chart(this.lineCanvasOne.nativeElement, {
  
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: global_labels ,
                 datasets: [
                     {
-                        label: "My First dataset",
                         fill: false,
                         lineTension: 0.1,
-                        backgroundColor: "rgba(75,192,192,0.4)",
+                         backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 26, 201, 0.3)',
+                        'rgba(64, 255, 26, 0.3)',
+                        'rgba(255, 255, 26, 0.3)',
+                        ],
                         borderColor: "rgba(75,192,192,1)",
                         borderCapStyle: 'butt',
                         borderDash: [],
@@ -43,34 +76,44 @@ ionViewDidLoad() {
                         pointBackgroundColor: "#fff",
                         pointBorderWidth: 1,
                         pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)", 
                         pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        spanGaps: false,
+                        data: cpg_count,
+                        spanGaps: true,
                     }
                 ]
+            },
+            options:{
+            	legend : {
+            		display :false
+            	}
+
             }
  
         });
+        this.lineChartOne.update();
 
         this.doughnutChartOne = new Chart(this.doughnutCanvasOne.nativeElement, {
  
             type: 'doughnut',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: global_labels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: '',
+                    data: disk_count,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 26, 201, 0.3)',
+                        'rgba(64, 255, 26, 0.3)',
+                        'rgba(255, 255, 26, 0.3)',
                     ],
                     hoverBackgroundColor: [
                         "#FF6384",
@@ -81,25 +124,28 @@ ionViewDidLoad() {
                         "#FFCE56"
                     ]
                 }]
-            }
- 
+            },
+            
         });
-
+        this.doughnutChartOne.update();
         this.barChart = new Chart(this.barCanvas.nativeElement, {
  
             type: 'bar',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: global_labels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+  
+                    data: capacity_size,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 26, 201, 0.3)',
+                        'rgba(64, 255, 26, 0.3)',
+                        'rgba(255, 255, 26, 0.3)',
                     ],
                     borderColor: [
                         'rgba(255,99,132,1)',
@@ -119,26 +165,33 @@ ionViewDidLoad() {
                             beginAtZero:true
                         }
                     }]
-                }
+                },
+                	legend:{
+                		display: false
+                	}
+
             }
  
         });
+        this.barChart.update();
 
         this.doughnutChartTwo = new Chart(this.doughnutCanvasTwo.nativeElement, {
  
             type: 'doughnut',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: global_labels,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: bandwidth,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 26, 201, 0.3)',
+                        'rgba(64, 255, 26, 0.3)',
+                        'rgba(255, 255, 26, 0.3)',
                     ],
                     hoverBackgroundColor: [
                         "#FF6384",
@@ -152,18 +205,27 @@ ionViewDidLoad() {
             }
  
         });
-
+        this.doughnutChartTwo.update();
         this.lineChartTwo = new Chart(this.lineCanvasTwo.nativeElement, {
  
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: global_labels,
                 datasets: [
                     {
-                        label: "My First dataset",
                         fill: false,
                         lineTension: 0.1,
-                        backgroundColor: "rgba(75,192,192,0.4)",
+                         backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 26, 201, 0.3)',
+                        'rgba(64, 255, 26, 0.3)',
+                        'rgba(255, 255, 26, 0.3)',
+                        ],
                         borderColor: "rgba(75,192,192,1)",
                         borderCapStyle: 'butt',
                         borderDash: [],
@@ -178,12 +240,22 @@ ionViewDidLoad() {
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: capacity_free,
                         spanGaps: false,
                     }
                 ]
+            },
+            options:{
+            	legend:{
+            		display:false
+            	}
             }
  
         });
+       this.lineChartTwo.update();
+            
+        });
+
+             
 }
 }
