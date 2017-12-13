@@ -13,12 +13,7 @@
 <ion-content>
       <ion-list>
         <ion-item *ngFor="let item of filteredItems">
-			<ion-label>
-				<!--<button ion-button [navPush]="pushPage" small>{{ item[0] }}</button>-->
-        <button ion-button (click)="switchToDetails(item[3])" small>{{ item[0] }}</button>  			
-			</ion-label>
-			<ion-toggle (ionChange)= "updateItem(item[2])" checked="{{item[1]}}">
-			</ion-toggle>
+        <button ion-button (click)="switchToDetails(item[3])" small>{{ item[0] }}</button> 
 			</ion-item>
       </ion-list>
 </ion-content>
